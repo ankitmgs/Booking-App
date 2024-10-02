@@ -4,27 +4,27 @@ const { Schema } = mongoose;
 const HotelScheme = new mongoose.Schema({
   name: {
     type: String,
-    require: true,
+    required: true,
   },
   city: {
     type: String,
-    require: true,
+    required: true,
   },
   address: {
     type: String,
-    require: true,
+    required: true,
   },
   phone: {
     type: Number,
-    require: true,
+    required: true,
   },
   email: {
     type: String,
-    require: true,
+    required: true,
   },
   distance: {
     type: String,
-    require: true,
+    required: true,
   },
   photos: {
     type: [String],
@@ -39,11 +39,11 @@ const HotelScheme = new mongoose.Schema({
   },
   desc: {
     type: String,
-    require: true,
+    required: true,
   },
   cheapestPrice: {
     type: Number,
-    require: true,
+    required: true,
   },
   featured: {
     type: Boolean,

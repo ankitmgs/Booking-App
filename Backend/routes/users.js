@@ -1,10 +1,20 @@
 const express = require("express");
+const {
+  updateUser,
+  deleteUser,
+  getUser,
+  getUsers,
+} = require("../controllers/user");
 
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  console.log("This is auth endpoint !");
-  return res.send("This is auth endpoint")
-});
+//UPDATE User
+router.put("/:id", updateUser);
+//DELETE Htel
+router.delete("/:id", deleteUser);
+//GET User By ID
+router.get("/:id", getUser);
+//GET ALL Users
+router.get("/", getUsers);
 
 module.exports = router;
