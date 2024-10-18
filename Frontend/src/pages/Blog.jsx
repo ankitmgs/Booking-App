@@ -191,7 +191,7 @@ const Blog = () => {
                       <iframe
                         src="https://player.vimeo.com/video/246941769"
                         allow="autoplay; fullscreen"
-                        allowfullscreen
+                        allowFullScreen
                       ></iframe>
                       <div className="blog-info">
                         <h4>
@@ -220,7 +220,7 @@ const Blog = () => {
                   <a
                     className="page-link page-prev"
                     href="#previous"
-                    tabindex="-1"
+                    tabIndex="-1"
                   >
                     Previous
                   </a>

@@ -12,27 +12,14 @@ import Contact from "./pages/Contact";
 import Header from "./components/Header";
 import "./index.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Routing from "./utils/Routing";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/services" element={<Services />} />
-          <Route path="/rooms" element={<Rooms />} />
-          <Route path="/room-single" element={<RoomSingle />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/booking" element={<Booking />} />
-          <Route path="/blog-single" element={<BlogSingle />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
-      </BrowserRouter>
-      {/* <Home /> */}
+      <Routing />
     </>
   );
 }

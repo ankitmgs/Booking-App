@@ -295,7 +295,7 @@ const BlogSingle = () => {
                       className="form-control"
                       placeholder="Your Comment*"
                       required=""
-                      spellcheck="false"
+                      spellCheck="false"
                     ></textarea>
                   </div>
                   <div className="input-grids row">

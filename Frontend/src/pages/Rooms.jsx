@@ -560,7 +560,7 @@ const Rooms = () => {
                 <Link
                   className="page-link page-prev"
                   to="#previous"
-                  tabindex="-1"
+                  tabIndex="-1"
                 >
                   Previous
                 </Link>
