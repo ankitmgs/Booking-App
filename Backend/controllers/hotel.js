@@ -1,60 +1,64 @@
 const Hotel = require("../models/Hotel");
 
 const createHotel = async (req, res, next) => {
-  const {
-    name,
-    city,
-    address,
-    distance,
-    rating,
-    rooms,
-    desc,
-    cheapestPrice,
-    phone,
-    email,
-  } = req.body;
-
-  if (!name) {
-    return res.status(400).json({ error: "Name is required." });
-  }
-  if (!city) {
-    return res.status(400).json({ error: "City is required." });
-  }
-  if (!address) {
-    return res.status(400).json({ error: "Address is required." });
-  }
-  if (!distance) {
-    return res.status(400).json({ error: "Distance is required." });
-  }
-  if (!rating) {
-    return res.status(400).json({ error: "Rating is required." });
-  }
-  if (!rooms) {
-    return res.status(400).json({ error: "Rooms are required." });
-  }
-  if (!desc) {
-    return res.status(400).json({ error: "Description is required." });
-  }
-  if (!cheapestPrice) {
-    return res.status(400).json({ error: "Cheapest price is required." });
-  }
-  if (!phone) {
-    return res.status(400).json({ error: "Phone is required." });
-  }
-  if (!email) {
-    return res.status(400).json({ error: "Email is required." });
-  }
-
-  const hotelExist = await Hotel.findOne({ $or: [{ name }, { email }] });
-  if (hotelExist) {
-    return res
-      .status(400)
-      .json("A hotel with the same name or email already exists.");
-  }
-  const newHotel = new Hotel(req.body);
   try {
+    const {
+      name,
+      city,
+      address,
+      distance,
+      rating,
+      rooms,
+      desc,
+      cheapestPrice,
+      phone,
+      email,
+    } = req.body;
+
+    // Validation checks
+    const requiredFields = {
+      name,
+      city,
+      address,
+      distance,
+      rating,
+      rooms,
+      desc,
+      cheapestPrice,
+      phone,
+      email,
+    };
+
+    for (const [key, value] of Object.entries(requiredFields)) {
+      if (!value) {
+        return res.status(400).json({
+          success: false,
+          status: 400,
+          message: `${key.charAt(0).toUpperCase() + key.slice(1)} is required.`,
+        });
+      }
+    }
+
+    // Check if hotel already exists
+    const hotelExist = await Hotel.findOne({ $or: [{ name }, { email }] });
+    if (hotelExist) {
+      return res.status(409).json({
+        success: false,
+        status: 409,
+        message: "A hotel with the same name or email already exists.",
+      });
+    }
+
+    // Create new hotel
+    const newHotel = new Hotel(req.body);
     const savedHotel = await newHotel.save();
-    return res.status(200).json(savedHotel);
+
+    return res.status(201).json({
+      success: true,
+      status: 201,
+      message: "Hotel has been created successfully.",
+      result: savedHotel,
+    });
   } catch (err) {
     next(err);
   }
@@ -65,15 +69,22 @@ const updateHotel = async (req, res, next) => {
     const hotelExist = await Hotel.findOne({ $or: [{ name }, { email }] });
 
     if (hotelExist) {
-      return res
-        .status(400)
-        .json("A hotel with the same name or email already exists.");
+      return res.status(400).json({
+        success: false,
+        status: 409,
+        message: "A hotel with the same name or email already exists.",
+      });
     }
 
     const updateData = await Hotel.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
-    res.status(200).json(updateData);
+    res.status(200).json({
+      success: true,
+      status: 200,
+      message: "Hotel has been updated.",
+      result: updateData,
+    });
   } catch (err) {
     next(err);
   }
@@ -81,7 +92,11 @@ const updateHotel = async (req, res, next) => {
 const deleteHotel = async (req, res, next) => {
   try {
     await Hotel.findByIdAndDelete(req.params.id);
-    res.status(200).json("Hotel has been Deleted");
+    res.status(200).json({
+      status: true,
+      success: 200,
+      message: "Hotel has been Deleted",
+    });
   } catch (err) {
     next(err);
   }
@@ -95,51 +110,95 @@ const getHotel = async (req, res, next) => {
   }
 };
 const getHotels = async (req, res, next) => {
-  const { max, min, limit, ...others } = req.query;
   try {
+    let { max, min, limit, ...filters } = req.query;
+
+    // Convert values to numbers
+    const minPrice = Number(min) || 1;
+    const maxPrice = Number(max) || 999;
+    const limitCount = Number(limit) || 10;
+
     const hotels = await Hotel.find({
-      ...others,
-      cheapestPrice: { $gt: min | 1, $lt: max || 999 },
-    }).limit(limit);
-    res.status(200).json(hotels);
+      ...filters,
+      cheapestPrice: { $gte: minPrice, $lte: maxPrice }, // Fixed price filter
+    })
+      .limit(limitCount)
+      .exec();
+
+    if (hotels.length === 0) {
+      return res.status(200).json({
+        success: true,
+        status: 200,
+        message: "No hotels found matching the criteria.",
+        count: 0,
+        result: [],
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      status: 200,
+      message: "Hotels retrieved successfully.",
+      count: hotels.length,
+      result: hotels,
+    });
   } catch (error) {
     next(error);
   }
 };
-
 const countByCity = async (req, res, next) => {
-  const cities = req.query.cities.split(",");
   try {
+    if (!req.query.cities) {
+      return res.status(400).json({
+        success: false,
+        status: 400,
+        message: "Cities query parameter is required.",
+      });
+    }
+
+    const cities = req.query.cities.split(",");
+
     const list = await Promise.all(
-      cities.map((city) => {
-        return Hotel.countDocuments({ city: city });
+      cities.map(async (city) => {
+        const count = await Hotel.countDocuments({ city: city });
+        return { city, count };
       })
     );
-    return res.status(200).json(list);
+
+    return res.status(200).json({
+      success: true,
+      status: 200,
+      message: "Hotel count retrieved successfully.",
+      result: list,
+    });
   } catch (err) {
     next(err);
   }
 };
+
 
 const countByType = async (req, res, next) => {
   try {
-    const hotelCount = await Hotel.countDocuments({ type: "hotel" });
-    const apartmentCount = await Hotel.countDocuments({ type: "apartment" });
-    const resortsCount = await Hotel.countDocuments({ type: "resorts" });
-    const villasCount = await Hotel.countDocuments({ type: "villas" });
-    const cabinsCount = await Hotel.countDocuments({ type: "cabins" });
+    const types = ["hotel", "apartment", "resorts", "villas", "cabins"];
 
-    res.status(200).json([
-      { type: "hotel", count: hotelCount },
-      { type: "apartment", count: apartmentCount },
-      { type: "resorts", count: resortsCount },
-      { type: "villas", count: villasCount },
-      { type: "cabins", count: cabinsCount },
-    ]);
+    const counts = await Promise.all(
+      types.map(async (type) => {
+        const count = await Hotel.countDocuments({ type });
+        return { type, count };
+      })
+    );
+
+    return res.status(200).json({
+      success: true,
+      status: 200,
+      message: "Hotel counts by type retrieved successfully.",
+      result: counts,
+    });
   } catch (err) {
     next(err);
   }
 };
+
 
 module.exports = {
   createHotel,

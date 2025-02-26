@@ -24,7 +24,7 @@ const HotelScheme = new mongoose.Schema({
   },
   distance: {
     type: String,
-    required: true,
+    // required: true,
   },
   photos: {
     type: [String],
@@ -43,7 +43,7 @@ const HotelScheme = new mongoose.Schema({
   },
   desc: {
     type: String,
-    required: true,
+    // required: true,
   },
   cheapestPrice: {
     type: Number,
