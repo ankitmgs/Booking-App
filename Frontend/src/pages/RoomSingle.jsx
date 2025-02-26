@@ -7,10 +7,12 @@ import Rs1 from "../assets/images/rs1.jpg";
 import Rs2 from "../assets/images/rs2.jpg";
 import Facilities from "../assets/images/facilities.jpg";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 const RoomSingle = () => {
   return (
     <>
+      <Header />
       <section className="room-single-block">
         <div className="content-with-slider">
           <div className="container">
@@ -51,7 +53,8 @@ const RoomSingle = () => {
                 </ul>
                 <a href="room.html" className="back">
                   {" "}
-                  <span className="fa fa-long-arrow-left"></span> Back to all rooms
+                  <span className="fa fa-long-arrow-left"></span> Back to all
+                  rooms
                 </a>
               </div>
               <div className="content-photo-right">
@@ -143,8 +146,8 @@ const RoomSingle = () => {
                 </li>
                 <li>
                   <a hef="#url">
-                    <span className="fa fa-check" aria-hidden="true"></span>Private
-                    Bathroom
+                    <span className="fa fa-check" aria-hidden="true"></span>
+                    Private Bathroom
                   </a>
                 </li>
                 <li>
@@ -155,14 +158,14 @@ const RoomSingle = () => {
                 </li>
                 <li>
                   <a hef="#url">
-                    <span className="fa fa-check" aria-hidden="true"></span>Early
-                    Check-in
+                    <span className="fa fa-check" aria-hidden="true"></span>
+                    Early Check-in
                   </a>
                 </li>
                 <li>
                   <a hef="#url">
-                    <span className="fa fa-check" aria-hidden="true"></span>Swimming
-                    pool
+                    <span className="fa fa-check" aria-hidden="true"></span>
+                    Swimming pool
                   </a>
                 </li>
                 <li>
@@ -173,8 +176,8 @@ const RoomSingle = () => {
                 </li>
                 <li>
                   <a hef="#url">
-                    <span className="fa fa-check" aria-hidden="true"></span>Welcome
-                    treatment
+                    <span className="fa fa-check" aria-hidden="true"></span>
+                    Welcome treatment
                   </a>
                 </li>
                 <li>
@@ -185,8 +188,8 @@ const RoomSingle = () => {
                 </li>
                 <li>
                   <a hef="#url">
-                    <span className="fa fa-check" aria-hidden="true"></span>Aesop
-                    bath amenities
+                    <span className="fa fa-check" aria-hidden="true"></span>
+                    Aesop bath amenities
                   </a>
                 </li>
                 <li>

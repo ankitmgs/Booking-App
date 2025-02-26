@@ -8,10 +8,12 @@ import Team3 from "../assets/images/team3.jpg";
 import Team4 from "../assets/images/team4.jpg";
 import Footer from "../components/Footer";
 import { NavLink } from "react-router-dom";
+import Header from "../components/Header";
 
 const About = () => {
   return (
     <>
+      <Header />
       <section className="w3l-breadcrumb">
         <div className="breadcrum-bg py-sm-5 py-4">
           <div className="container py-lg-3">

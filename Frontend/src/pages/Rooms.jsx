@@ -7,10 +7,12 @@ import Blog1 from "../assets/images/blog1.jpg";
 import Blog2 from "../assets/images/blog2.jpg";
 import Blog3 from "../assets/images/blog3.jpg";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 const Rooms = () => {
   return (
     <>
+      <Header />
       <section className="w3l-breadcrumb">
         <div className="breadcrum-bg py-sm-5 py-4">
           <div className="container py-lg-3">

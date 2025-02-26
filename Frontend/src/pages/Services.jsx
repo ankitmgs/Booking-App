@@ -5,10 +5,12 @@ import Slide2 from "../assets/images/slide2.jpg";
 import Slide3 from "../assets/images/slide3.jpg";
 import { NavLink } from "react-router-dom";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 const Services = () => {
   return (
     <>
+      <Header />
       <section className="w3l-breadcrumb">
         <div className="breadcrum-bg py-sm-5 py-4">
           <div className="container py-lg-3">
@@ -107,7 +109,10 @@ const Services = () => {
                 <div className="col-lg-4 col-md-6 mt-sm-5 mt-4">
                   <div className="features-with-17-right-tp_sur">
                     <div className="features-with-17-left1">
-                      <span className="fa fa-headphones" aria-hidden="true"></span>
+                      <span
+                        className="fa fa-headphones"
+                        aria-hidden="true"
+                      ></span>
                     </div>
                     <div className="features-with-17-left2">
                       <h5>Safe & Secure </h5>

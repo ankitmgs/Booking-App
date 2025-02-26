@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 const Contact = () => {
   return (
     <>
+      <Header />
       <section className="w3l-breadcrumb">
         <div className="breadcrum-bg py-sm-5 py-4">
           <div className="container py-lg-3">

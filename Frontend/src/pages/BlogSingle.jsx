@@ -7,10 +7,12 @@ import Team1 from "../assets/images/team1.jpg";
 import Team2 from "../assets/images/team2.jpg";
 import Team3 from "../assets/images/team3.jpg";
 import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 const BlogSingle = () => {
   return (
     <>
+      <Header />
       <section className="singleblock1 py-5">
         <div className="container py-sm-4">
           <div className="row">

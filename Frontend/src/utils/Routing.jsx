@@ -11,13 +11,17 @@ import BlogSingle from "../pages/BlogSingle";
 import Contact from "../pages/Contact";
 import Header from "../components/Header";
 import NotFound from "./NotFound";
+import Login from "../pages/Login";
+import Signup from "../pages/Signup";
 
 const Routing = () => {
   return (
     <BrowserRouter>
-      <Header />
+      {/* <Header /> */}
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/about" element={<About />} />
         <Route path="/services" element={<Services />} />
         <Route path="/rooms" element={<Rooms />} />

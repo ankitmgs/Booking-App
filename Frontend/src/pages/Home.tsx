@@ -13,10 +13,12 @@ import Logo4 from "../assets/images/logo4.jpg";
 import VideoBG from "../assets/images/videobg.jpg";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
+import Header from "../components/Header";
 
 const Home = () => {
   return (
     <>
+      <Header />
       <section className="w3l-main-slider" id="home">
         <div className="companies20-content">
           <div className="owl-one owl-carousel owl-theme">
