@@ -126,6 +126,15 @@ const Home = () => {
                   >
                     <div className="row book-form">
                       <div className="form-input col-md-4 col-sm-6 mt-3">
+                        <label>Address</label>
+                        <input
+                          type="text"
+                          name=""
+                          placeholder="Search by City, Address"
+                          required
+                        />
+                      </div>
+                      <div className="form-input col-md-4 col-sm-6 mt-3">
                         <label>Check-in Date</label>
                         <input
                           type="date"

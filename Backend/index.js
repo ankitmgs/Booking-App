@@ -9,7 +9,7 @@ const usersRoute = require("./routes/users");
 const connect = require("./connection");
 const app = express();
 dotenv.config();
-const port = 8800;
+const port = process.env.PORT || 8800;
 
 app.use(cors());
 app.use(express.json());
